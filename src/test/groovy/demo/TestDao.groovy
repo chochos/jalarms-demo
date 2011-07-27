@@ -17,7 +17,7 @@ class TestDao {
 
 	@Before
 	void insertarAdicionales() {
-		db.runScript('/test_dara.sql')
+		db.runScript('/test_data.sql')
 	}
 
 	@Test

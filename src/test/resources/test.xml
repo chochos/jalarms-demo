@@ -18,6 +18,9 @@
 	<constructor-arg><ref local="dataSource" /></constructor-arg>
 </bean>
 
+<!-- el DAO -->
+<bean class="ejemplo.EjemploDAO" />
+
 <!-- Nuestro creador de base de datos -->
 <bean class="ejemplo.db.ConfigurarDB">
 	<property name="scripts"><list>

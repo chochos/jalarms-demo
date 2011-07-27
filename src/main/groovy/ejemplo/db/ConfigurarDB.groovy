@@ -1,4 +1,4 @@
-package setup
+package ejemplo.db
 
 import javax.annotation.*
 import org.springframework.jdbc.core.simple.*
@@ -12,6 +12,8 @@ class ConfigurarDB {
 
 	void runScript(String name) {
 		def reader = new LineNumberReader(new InputStreamReader(getClass().getResourceAsStream(name)))
+		def sb = new StringBuilder()
+		def line = reader.readLine()
 		try {
 			while (line != null) {
 				line = line.trim()
@@ -38,14 +40,12 @@ class ConfigurarDB {
 		} finally {
 			reader.close()
 		}
-		def sb = new StringBuilder()
-		def line = reader.readLine()
 	}
 
 	@PostConstruct
 	void init() {
 		log.info 'Creando base de datos'
 		//Debemos crear las tablas necesarias
-		dbfiles.each { runScript(it) }
+		scripts.each { runScript(it) }
 	}
 }

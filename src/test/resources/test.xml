@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:engine="http://www.newvision.com/schema/engine"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.newvision.com/schema/engine http://www.newvision.com/schema/engine/engine.xsd">
+
+<!-- DataSource con H2 -->
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+	p:driverClassName="org.h2.Driver"
+	p:url="jdbc:h2:mem:jalarms;MODE=PostgreSQL" p:defaultAutoCommit="true"
+	p:username="sa" p:password="" p:initialSize="1" />
+
+<!-- SimpleJdbcTemplate -->
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+	<constructor-arg><ref local="dataSource" /></constructor-arg>
+</bean>
+
+<!-- Nuestro creador de base de datos -->
+<bean class="ejemplo.db.ConfiguraDB">
+	<property name="scripts"><list>
+		<value>crear_base.sql</value>
+		<value>insertar_datos.sql</value>
+	</list></property>
+</bean>
+
+</beans>
